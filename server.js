@@ -28,7 +28,7 @@ app.post(pages.detected_object, (req, res) => {
 
 app.post(pages.live_image, (req, res) => {
     console.log(req.body);
-    res.send({code: 1, message: "success"});
+    res.send(req.body);
 })
 
 app.listen(port, () => {
