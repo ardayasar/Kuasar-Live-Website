@@ -6,12 +6,14 @@ const port = 5200;
 app.use(express.json());
 
 var byte64_location = './data/byte64.json';
-
+var notStatus = false;
 var pages = {
     main: "/",
     submit_ssid: "/ssid",
     detected_object: "/obj",
-    live_image: "/limg"
+    live_image: "/limg",
+    setNotification: "/sn",
+    getNotification: "/gn"
 }
 
 app.get(pages.main, (req, res) => {
@@ -39,6 +41,16 @@ app.post(pages.live_image, (req, res) => {
     fs.writeFileSync(byte64_location, data, 'utf-8');
     
     res.send(req.body);
+})
+
+app.get(pages.setNotification, (req, res) => {
+    notStatus = true
+    res.send("true");
+})
+
+app.get(pages.getNotification, (req, res) => {
+    res.send(notStatus);
+    notStatus = false;
 })
 
 app.listen(port, () => {
