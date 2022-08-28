@@ -7,13 +7,15 @@ app.use(express.json());
 
 var byte64_location = './data/byte64.json';
 var notStatus = false;
+var ipp = "";
 var pages = {
     main: "/",
     submit_ssid: "/ssid",
     detected_object: "/obj",
     live_image: "/limg",
     setNotification: "/sn",
-    getNotification: "/gn"
+    getNotification: "/gn",
+    raspi: 'raspi'
 }
 
 app.get(pages.main, (req, res) => {
@@ -51,6 +53,23 @@ app.get(pages.setNotification, (req, res) => {
 app.get(pages.getNotification, (req, res) => {
     res.send(notStatus);
     notStatus = false;
+})
+
+app.post(pages.raspi, (req, res) => {
+    try{
+        ipp = req.query.ip;
+        if(ipp == null){
+            res.send({set: false});
+        }
+        res.send({set: true});
+    }
+    catch{
+        res.send({set: false});
+    }
+})
+
+app.get(pages.raspi, (req, res) => {
+    res.send(ipp);
 })
 
 app.listen(port, () => {
