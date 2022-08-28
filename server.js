@@ -15,7 +15,7 @@ var pages = {
     live_image: "/limg",
     setNotification: "/sn",
     getNotification: "/gn",
-    raspi: 'raspi'
+    raspi: '/raspi'
 }
 
 app.get(pages.main, (req, res) => {
